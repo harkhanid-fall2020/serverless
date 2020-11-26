@@ -1,0 +1,62 @@
+name: build and deploy
+
+env:
+  ARTIFACT_NAME: LambdaFunction.zip
+  AWS_REGION: us-east-1
+  CODEDEPLOY_APPLICATION_NAME: DemoLambda
+  CODEDEPLOY_APPLICATION_DEVELOPMENT_GROUP: DemoGroup
+
+on: 
+  push:
+    branches:
+    - master
+
+jobs: 
+
+  ci-cd:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [ 10.x ]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Creating Lambda Artifact File
+      run: |
+        zip -r ${{env.ARTIFACT_NAME}} index.js package.json appspec.yml
+        mv ${{env.ARTIFACT_NAME}} codedeploy_artifact/
+
+    - name: Configuring AWS S3
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+        aws-secret-access-key: ${{secrets.AWS_SECRET_KEY}}
+        aws-region: ${{ env.AWS_REGION }}
+    
+    - name: Copy Artifact to s3
+      run: |
+        aws s3 sync ./codedeploy_artifact s3://${{secrets.CODEDEPLOY_Lambda_BUCKET}}
+    
+    - name: CodeDeploy 
+      run: |
+        output=$(aws deploy create-deployment \
+          --application-name ${{env.CODEDEPLOY_APPLICATION_NAME}} \
+          --deployment-group-name ${{env.CODEDEPLOY_APPLICATION_DEVELOPMENT_GROUP}} \
+          --s3-location bucket=${{secrets.CODEDEPLOY_Lambda_BUCKET}},key=${{env.ARTIFACT_NAME}},bundleType=zip \
+          --region ${{env.AWS_REGION}} \
+          --output json)
+
+          
+          echo $output
+
+          dId=$(echo $output | jq -r '.deploymentId')
+
+          aws deploy wait deployment-successful --deployment-id $dId
+          

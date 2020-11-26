@@ -1,0 +1,20 @@
+{
+  "name": "serverless",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node -e \"(async () => console.log(await require('./index').handler({num1:5,num2:10})))();\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harkhanid/serverless.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/harkhanid/serverless/issues"
+  },
+  "homepage": "https://github.com/harkhanid/serverless#readme"
+}
