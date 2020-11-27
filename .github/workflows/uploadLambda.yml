@@ -49,7 +49,7 @@ jobs:
     - name: CodeDeploy 
       run: |
         output=$(aws lambda  update-function-code \
-        --function-name "demo \
+        --function-name demo \
         --zip-file fileb://artifact/${{env.ARTIFACT_NAME}} \
         --publish
         )
