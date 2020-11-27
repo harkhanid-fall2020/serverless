@@ -31,6 +31,9 @@ jobs:
     - name: Creating Lambda Artifact File
       run: |
         zip -r ${{env.ARTIFACT_NAME}} index.js package.json appspec.yml
+        mkdir artifact
+        ls -al
+        mv ${{env.ARTIFACT_NAME}} artifact/
      
     - name: Configuring AWS S3
       uses: aws-actions/configure-aws-credentials@v1
@@ -41,7 +44,7 @@ jobs:
     
     - name: Copy Artifact to s3
       run: |
-        aws s3 sync ./${{env.ARTIFACT_NAME}} s3://${{secrets.CODEDEPLOY_Lambda_BUCKET}}
+        aws s3 sync ./artifact s3://${{secrets.CODEDEPLOY_Lambda_BUCKET}}
     
     - name: CodeDeploy 
       run: |
