@@ -48,10 +48,11 @@ jobs:
     
     - name: CodeDeploy 
       run: |
-        output=$(aws lambda   update-function-code \
+        output=$(aws lambda  update-function-code \
         --function-name demo \
         --s3-bucket ${{secrets.CODEDEPLOY_Lambda_BUCKET}} \ 
         --s3-key ${{env.ARTIFACT_NAME}} \
+        --publish
         )
           echo $output
 
