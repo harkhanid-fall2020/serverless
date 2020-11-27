@@ -22,7 +22,7 @@ const main = async event =>{
     },
     Source: "demo@dev.dharmikharkhani.me",
   };
- 
+//  checking 
   return ses.sendEmail(params).promise()
     
 }
