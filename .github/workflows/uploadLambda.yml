@@ -41,7 +41,7 @@ jobs:
     
     - name: Copy Artifact to s3
       run: |
-        aws s3 sync ${{env.ARTIFACT_NAME}} s3://${{secrets.CODEDEPLOY_Lambda_BUCKET}}
+        aws s3 sync ./${{env.ARTIFACT_NAME}} s3://${{secrets.CODEDEPLOY_Lambda_BUCKET}}
     
     - name: CodeDeploy 
       run: |
