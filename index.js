@@ -1,6 +1,5 @@
 const aws = require('aws-sdk');
 const ses = new aws.SES({ region: "us-east-1" });
-const {"v4": uuidv4} = require('uuid');
 const main = async event =>{
     //getting Message from SNS Topic
     
