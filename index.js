@@ -5,7 +5,7 @@ const main = async event =>{
     //getting Message from SNS Topic
     let message = event.Records[0].Sns.Message;
     console.log(message);
-    parsedMessage = JSON.parse(message);
+    let parsedMessage = JSON.parse(message);
     const ddb = new aws.DynamoDB.DocumentClient({ region:"us-east-1"});
     parsedMessage.id = uuidv4();
     
@@ -14,6 +14,15 @@ const main = async event =>{
       TableName: 'demoTable',
       Item:parsedMessage
     }
+
+    const getParams = {
+      TableName: 'demoTable',
+      Item:message
+    }
+    console.log(getParams);
+    const getData = await ddb.get(params).promise();
+    
+    
     const fnput = await ddb.put(params).promise();
     // sending Mail
     
