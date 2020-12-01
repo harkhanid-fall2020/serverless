@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/harkhanid/serverless/issues"
   },
-  "homepage": "https://github.com/harkhanid/serverless#readme"
+  "homepage": "https://github.com/harkhanid/serverless#readme",
+  "dependencies": {
+    "uuid": "^8.3.1"
+  }
 }
