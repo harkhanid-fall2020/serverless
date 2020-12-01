@@ -17,7 +17,7 @@ const main = async event =>{
 
     const getParams = {
       TableName: 'demoTable',
-      Item:message
+      Key:message
     }
     console.log(getParams);
     const getData = await ddb.get(params).promise();
