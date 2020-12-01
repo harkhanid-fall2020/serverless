@@ -31,7 +31,7 @@ jobs:
     - name: Creating Lambda Artifact File
       run: |
         npm install
-        zip -r ${{env.ARTIFACT_NAME}} index.js package.json node_modules appspec.yml
+        zip -r ${{env.ARTIFACT_NAME}} index.js package.json mail.js appspec.yml
         mkdir artifact
         ls -al
         mv ${{env.ARTIFACT_NAME}} artifact/
@@ -56,7 +56,7 @@ jobs:
         )
           echo $output
 
-          dId=$(echo $output | jq -r '.deploymentId')
+          dId=$(echo $output | jq -r '.LastUpdateStatus')
 
           aws deploy wait deployment-successful --deployment-id $dId
           
