@@ -30,7 +30,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Creating Lambda Artifact File
       run: |
-        zip -r ${{env.ARTIFACT_NAME}} index.js package.json appspec.yml
+        npm install
+        zip -r ${{env.ARTIFACT_NAME}} index.js package.json node_modules appspec.yml
         mkdir artifact
         ls -al
         mv ${{env.ARTIFACT_NAME}} artifact/
