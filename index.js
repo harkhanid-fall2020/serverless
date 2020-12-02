@@ -9,7 +9,7 @@ const main = async event =>{
     let parsedMessage = JSON.parse(message);
     
     const getParams = {
-      TableName: 'demoTable',
+      TableName: 'csye6225',
       Key:{
         id:parsedMessage.id
       }
@@ -23,7 +23,7 @@ const main = async event =>{
       }else{
         //console.log("Not Duplicate");
         const params = {
-          TableName: 'demoTable',
+          TableName: 'csye6225',
           Item:parsedMessage
         }
         
