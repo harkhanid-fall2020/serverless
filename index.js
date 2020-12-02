@@ -7,13 +7,15 @@ const main = async event =>{
     let message = event.Records[0].Sns.Message;
     console.log("MSG:",message);
     let parsedMessage = JSON.parse(message);
-    
+    let sub ="";
     const getParams = {
       TableName: 'csye6225',
       Key:{
         id:parsedMessage.id
       }
     }
+    
+    let Subject 
     
     try{
       const getData = await ddb.get(getParams).promise();
@@ -38,9 +40,9 @@ const main = async event =>{
         Body: {
           Text: { Data:  mailBody},
         },
-      Subject: { Data: "Test Email" },
+      Subject: { Data: parsedMessage.type+ " - Notification" },
       },
-      Source: "demo@dev.dharmikharkhani.me",
+      Source: "notification@"+params.domain,
     };
 //  checking 
     return ses.sendEmail(paramMail).promise()
