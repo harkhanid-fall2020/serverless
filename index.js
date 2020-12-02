@@ -15,19 +15,6 @@ const main = async event =>{
       }
     }
     
-  let getparams1 
-  if(parsedMessage.apiAction == "Insert"){
-    getparams1 = {
-  TableName : 'csye6225',
-  FilterExpression : 'questionId = :questionId and apiAction = :apiAction and answerText = :answerText and userId = :userId',
-  ExpressionAttributeValues : {
-    ':questionId' : parsedMessage.questionId,
-    ':apiAction' : parsedMessage.apiAction,
-    ':answerText' : parsedMessage.answerText,
-    ':userId' : parsedMessage.userId
-  }
-  }; 
-  }else{
     getparams1 = {
       TableName : 'csye6225',
       FilterExpression : 'questionId = :questionId and answerId = :answerId and apiAction = :apiAction and answerText = :answerText and userId = :userId',
@@ -40,10 +27,6 @@ const main = async event =>{
   }
   }; 
 
-  }
-  
-
-    
     let Subject;
     
     try{
@@ -51,7 +34,7 @@ const main = async event =>{
       const getData = await ddb.scan(getparams1).promise();
       console.log("GETDATA:",getData);
       //if(getData.Item != undefined){
-      if(getData.count != 0){
+      if(getData.Count != 0){
         console.log("Mail Already Sent. Duplicate mail request: ", getData);
       }else{
         //console.log("Not Duplicate");
@@ -85,4 +68,5 @@ const main = async event =>{
     }
 }
 
+//console
 exports.handler = main;
