@@ -42,7 +42,7 @@ const main = async event =>{
         },
       Subject: { Data: parsedMessage.type+ " - Notification" },
       },
-      Source: "notification@"+params.domain,
+      Source: "notification@"+parsedMessage.domain,
     };
 //  checking 
     return ses.sendEmail(paramMail).promise()
