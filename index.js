@@ -67,6 +67,5 @@ const main = async event =>{
       console.log(e);
     }
 }
-
 //console
 exports.handler = main;
