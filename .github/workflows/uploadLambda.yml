@@ -43,9 +43,9 @@ jobs:
         aws-secret-access-key: ${{secrets.AWS_SECRET_KEY}}
         aws-region: ${{ env.AWS_REGION }}
     
-    - name: Copy Artifact to s3
-      run: |
-        aws s3 sync ./artifact s3://${{secrets.CODEDEPLOY_Lambda_BUCKET}}
+    # - name: Copy Artifact to s3
+    #   run: |
+    #     aws s3 sync ./artifact s3://${{secrets.CODEDEPLOY_Lambda_BUCKET}}
     
     - name: CodeDeploy 
       run: |
