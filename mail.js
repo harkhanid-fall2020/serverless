@@ -1,7 +1,7 @@
 
 exports.CreateBody = (params) =>{
     let message={};
-    if(params.type == "Insert"){
+    if(params.apiAction == "Insert"){
         let questionlink = "http://"+params.domain+"/question/"+ params.questionId;
         let answerLink = "http://"+params.domain+"/question/"+ params.questionId+'/answer/'+params.answerId;
         
@@ -20,7 +20,7 @@ you can view entire question by clicking the following link
 From,
 Web App Services.`;
         console.log("INSIDE MAIL:", message);
-    }else if(params.type == "Update"){
+    }else if(params.apiAction == "Update"){
     let questionlink = "http://"+params.domain+"/question/"+ params.questionId;
         let answerLink = "http://"+params.domain+"/question/"+ params.questionId+'/answer/'+params.answerId;
         
@@ -38,7 +38,7 @@ you can view entire question by clicking the following link
 From,
 Web App Services.`;
         console.log("INSIDE MAIL:", message);        
-    }else if(params.type == "Delete"){
+    }else if(params.apiAction == "Delete"){
     let questionlink = "http://"+params.domain+"/question/"+ params.questionId;
 
         message = ` 

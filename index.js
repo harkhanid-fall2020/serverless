@@ -15,12 +15,43 @@ const main = async event =>{
       }
     }
     
-    let Subject 
+  let getparams1 
+  if(parsedMessage.apiAction == "Insert"){
+    getparams1 = {
+  TableName : 'csye6225',
+  FilterExpression : 'questionId = :questionId and apiAction = :apiAction and answerText = :answerText and userId = :userId',
+  ExpressionAttributeValues : {
+    ':questionId' : parsedMessage.questionId,
+    ':apiAction' : parsedMessage.apiAction,
+    ':answerText' : parsedMessage.answerText,
+    ':userId' : parsedMessage.userId
+  }
+  }; 
+  }else{
+    getparams1 = {
+      TableName : 'csye6225',
+      FilterExpression : 'questionId = :questionId and answerId = :answerId and apiAction = :apiAction and answerText = :answerText and userId = :userId',
+      ExpressionAttributeValues : {
+        ':questionId' : parsedMessage.questionId,
+        ':apiAction' : parsedMessage.apiAction,
+        ':answerText' : parsedMessage.answerText,
+        ':userId' : parsedMessage.userId,
+        ':answerId' : parsedMessage.answerId
+  }
+  }; 
+
+  }
+  
+
+    
+    let Subject;
     
     try{
-      const getData = await ddb.get(getParams).promise();
-    
-      if(getData.Item != undefined){
+      //const getData = await ddb.get(getParams).promise();
+      const getData = await ddb.scan(getparams1).promise();
+      console.log("GETDATA:",getData);
+      //if(getData.Item != undefined){
+      if(getData.count != 0){
         console.log("Mail Already Sent. Duplicate mail request: ", getData);
       }else{
         //console.log("Not Duplicate");
@@ -40,7 +71,7 @@ const main = async event =>{
         Body: {
           Text: { Data:  mailBody},
         },
-      Subject: { Data: parsedMessage.type+ " - Notification" },
+      Subject: { Data: parsedMessage.apiAction+ " - Notification" },
       },
       Source: "notification@"+parsedMessage.domain,
     };
