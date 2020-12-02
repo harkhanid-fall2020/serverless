@@ -45,16 +45,13 @@ const main = async event =>{
       Source: "notification@"+parsedMessage.domain,
     };
 //  checking 
-    return ses.sendEmail(paramMail).promise()
-        const fnput = await ddb.put(params).promise();
-        
+      const mailAns= await ses.sendEmail(paramMail).promise()
+      const fnput = await ddb.put(params).promise();
+        return mailAns;
         }
     }catch(e){
       console.log(e);
     }
-    
-    
-    
 }
 
 exports.handler = main;
