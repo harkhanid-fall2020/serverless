@@ -5,10 +5,11 @@ const mail = require('./mail');
 const main = async event =>{
     
     let message = event.Records[0].Sns.Message;
+    console.log("MSG:",message);
     let parsedMessage = JSON.parse(message);
     
     const getParams = {
-      TableName: 'demoTable',
+      TableName: 'csye6225',
       Key:{
         id:parsedMessage.id
       }
@@ -22,28 +23,27 @@ const main = async event =>{
       }else{
         //console.log("Not Duplicate");
         const params = {
-          TableName: 'demoTable',
+          TableName: 'csye6225',
           Item:parsedMessage
         }
         
-        console.log(mail.CreateBody(params));
-        
     // sending Mail
+    let mailBody = mail.CreateBody(parsedMessage)
     
-    // const paramMail = {
-    //   Destination: {
-    //     ToAddresses: [parsedMessage.receiver],
-    //   },
-    //   Message: {
-    //     Body: {
-    //       Text: { Data: "Test" },
-    //     },
-    //   Subject: { Data: "Test Email" },
-    //   },
-    //   Source: "demo@dev.dharmikharkhani.me",
-    // };
+    const paramMail = {
+      Destination: {
+        ToAddresses: [parsedMessage.receiver],
+      },
+      Message: {
+        Body: {
+          Text: { Data:  mailBody},
+        },
+      Subject: { Data: "Test Email" },
+      },
+      Source: "demo@dev.dharmikharkhani.me",
+    };
 //  checking 
-  return ses.sendEmail(params).promise()
+    return ses.sendEmail(paramMail).promise()
         const fnput = await ddb.put(params).promise();
         
         }
