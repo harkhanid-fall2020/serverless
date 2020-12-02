@@ -55,8 +55,3 @@ jobs:
         --publish
         )
           echo $output
-
-          dId=$(echo $output | jq -r '.LastUpdateStatus')
-
-          aws deploy wait deployment-successful --deployment-id $dId
-          
