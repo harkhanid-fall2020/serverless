@@ -6,7 +6,7 @@ exports.CreateBody = (params) =>{
         let answerLink = "http://"+params.domain+"/question/"+ params.questionId+'/answer/'+params.answerId;
         
         message = ` 
-    Dear ${params.name} ,
+Dear ${params.name} ,
                     
 Someone has answered your question.
 
@@ -25,7 +25,7 @@ Web App Services.`;
         let answerLink = "http://"+params.domain+"/question/"+ params.questionId+'/answer/'+params.answerId;
         
         message = ` 
-    Dear ${params.name} ,
+Dear ${params.name} ,
                     
 Someone has Updated answer to your question.
 
@@ -42,7 +42,7 @@ Web App Services.`;
     let questionlink = "http://"+params.domain+"/question/"+ params.questionId;
 
         message = ` 
-    Dear ${params.name} ,
+Dear ${params.name} ,
                     
 Someone has Deleted answer to your question.
 
