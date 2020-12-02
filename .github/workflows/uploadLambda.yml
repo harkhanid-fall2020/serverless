@@ -3,7 +3,7 @@ name: build and deploy
 env:
   ARTIFACT_NAME: LambdaFunction.zip
   AWS_REGION: us-east-1
-  CODEDEPLOY_APPLICATION_NAME: DemoLambda
+  APPLICATION_NAME: SendMail_lambda
   CODEDEPLOY_APPLICATION_DEVELOPMENT_GROUP: DemoGroup
 
 on: 
@@ -50,8 +50,8 @@ jobs:
     - name: CodeDeploy 
       run: |
         output=$(aws lambda  update-function-code \
-        --function-name demo \
+        --function-name ${{env.APPLICATION_NAME}} \
         --zip-file fileb://artifact/${{env.ARTIFACT_NAME}} \
         --publish
         )
-          echo $output
+        echo $output
