@@ -7,9 +7,7 @@ env:
   CODEDEPLOY_APPLICATION_DEVELOPMENT_GROUP: DemoGroup
 
 on: 
-  push:
-    branches:
-    - main
+  workflow_dispatch:
 
 jobs: 
 
