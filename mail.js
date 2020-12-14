@@ -2,8 +2,8 @@
 exports.CreateBody = (params) =>{
     let message={};
     if(params.apiAction == "Insert"){
-        let questionlink = "http://"+params.domain+"/question/"+ params.questionId;
-        let answerLink = "http://"+params.domain+"/question/"+ params.questionId+'/answer/'+params.answerId;
+        let questionlink = "https://"+params.domain+"/question/"+ params.questionId;
+        let answerLink = "https://"+params.domain+"/question/"+ params.questionId+'/answer/'+params.answerId;
         
         message = ` 
 Dear ${params.name} ,
@@ -21,8 +21,8 @@ From,
 Web App Services.`;
         console.log("INSIDE MAIL:", message);
     }else if(params.apiAction == "Update"){
-    let questionlink = "http://"+params.domain+"/question/"+ params.questionId;
-        let answerLink = "http://"+params.domain+"/question/"+ params.questionId+'/answer/'+params.answerId;
+    let questionlink = "https://"+params.domain+"/question/"+ params.questionId;
+        let answerLink = "https://"+params.domain+"/question/"+ params.questionId+'/answer/'+params.answerId;
         
         message = ` 
 Dear ${params.name} ,
@@ -39,7 +39,7 @@ From,
 Web App Services.`;
         console.log("INSIDE MAIL:", message);        
     }else if(params.apiAction == "Delete"){
-    let questionlink = "http://"+params.domain+"/question/"+ params.questionId;
+    let questionlink = "https://"+params.domain+"/question/"+ params.questionId;
 
         message = ` 
 Dear ${params.name} ,
